@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Contact</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            color: #333;
+        }
+
+        h2 {
+            color: #e63946;
+            margin-top: 30px;
+        }
+
+        
+        .form-container {
+            width: 40%;
+            margin: 40px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
+
+       
+        label {
+            display: block;
+            font-weight: bold;
+            margin-top: 10px;
+            color: #333;
+        }
+
+       
+        input, textarea, select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 2px solid #e63946;
+            border-radius: 4px;
+            font-size: 16px;
+            background-color: #fff;
+        }
+
+        textarea {
+            height: 80px;
+            resize: none;
+        }
+
+        
+        .submit-btn {
+            background-color: #e63946;
+            border: none;
+            color: white;
+            padding: 12px 24px;
+            font-size: 16px;
+            margin-top: 20px;
+            cursor: pointer;
+            border-radius: 6px;
+            width: 100%;
+            transition: 0.3s;
+        }
+
+        .submit-btn:hover {
+            opacity: 0.9;
+        }
+
+      
+        .back-btn {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: white;
+            background-color: #555;
+            padding: 10px 20px;
+            border-radius: 6px;
+            transition: 0.3s;
+        }
+
+        .back-btn:hover {
+            background-color: #333;
+        }
+
+    </style>
+</head>
+<body>
+
+    <h2>Update Contact</h2>
+
+    <div class="form-container">
+        <form method="post">
+            {% csrf_token %}
+            <label for="first_name">First Name:</label>
+            <input type="text" name="first_name" value="{{ contact.first_name }}" required>
+
+            <label for="last_name">Last Name:</label>
+            <input type="text" name="last_name" value="{{ contact.last_name }}" required>
+
+            <label for="email">Email:</label>
+            <input type="email" name="email" value="{{ contact.email }}" required>
+
+            <label for="number">Phone Number:</label>
+            <input type="text" name="number" value="{{ contact.number }}" required>
+
+            <label for="address">Address:</label>
+            <textarea name="address" required>{{ contact.address }}</textarea>
+
+            <label for="gender">Gender:</label>
+            <select name="gender" required>
+                <option value="Male" {% if contact.gender == "Male" %}selected{% endif %}>Male</option>
+                <option value="Female" {% if contact.gender == "Female" %}selected{% endif %}>Female</option>
+            </select>
+
+            <button type="submit" class="submit-btn">Update Contact</button>
+        </form>
+
+        <a href="{% url 'dashboard' %}" class="back-btn">Back to Dashboard</a>
+    </div>
+
+</body>
+</html>

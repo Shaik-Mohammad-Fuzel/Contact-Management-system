@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacts Management System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+            margin: 0;
+            padding: 0;
+            color:#333333;
+        }
+
+        
+        form {
+            position: absolute;
+            top: 8px;
+            right: 16px;
+            font-size: 18px;
+        }
+
+        input[type="text"] {
+            border: none;
+            border-bottom: 2px solid red;
+            font-size: 16px;
+            padding: 5px;
+            outline: none;
+        }
+
+        button {
+            background-color: red;
+            border: none;
+            color: white;
+            padding: 12px 24px;
+            text-align: center;
+            font-size: 16px;
+            margin-top: 10px;
+            opacity: 0.6;
+            transition: 0.3s;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            opacity: 1;
+        }
+
+        .add-contact-container {
+            text-align: center;
+            margin-top: 100px;
+        }
+
+        .add-contact-container a {
+            text-decoration: none;
+        }
+
+        
+        .contacts-container {
+            width: 50%;
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .contact {
+            background: #fff;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: 0.3s;
+        }
+
+        .contact:hover {
+            background: #f8f8f8;
+        }
+
+        .contact a {
+            text-decoration: none;
+            color: #333333;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+   
+    <form method="GET" action="{% url 'search_contact' %}">
+        <input type="text" name="search" placeholder="Search contacts..." value="{{ search_query }}">
+        <button type="submit">Search</button>
+    </form>
+
+    
+    <div class="add-contact-container">
+        <a href="{% url 'add_contact' %}">
+            <button>Add Contact</button>
+        </a>
+    </div>
+
+    
+    <div class="contacts-container">
+        {% for contact in contacts %}
+            <div class="contact">
+                <a href="{% url 'view_contact' contact.slno %}">
+                    <p>{{ contact.first_name }} {{ contact.last_name }} - {{ contact.number }}</p>
+                </a>
+            </div>
+        {% empty %}
+            <p>No contacts found.</p>
+        {% endfor %}
+    </div>
+
+</body>
+</html>

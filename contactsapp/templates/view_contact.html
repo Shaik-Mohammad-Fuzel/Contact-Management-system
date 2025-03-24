@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Contact</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            color: #333333;
+        }
+
+        .contact-card {
+            width: 40%;
+            margin: 60px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
+
+        h2 {
+            color: #e63946;
+            text-align: center;
+        }
+
+        
+        p {
+            font-size: 18px;
+            padding: 8px 0;
+            border-bottom: 1px solid #ddd;
+        }
+
+       
+        .contact-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        a {
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .update-btn, .delete-btn, .back-btn {
+            background-color: #e63946;
+            border: none;
+            color: white;
+            padding: 12px 24px;
+            text-align: center;
+            font-size: 16px;
+            margin-top: 10px;
+            opacity: 0.9;
+            transition: 0.3s;
+            cursor: pointer;
+            border-radius: 6px;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .delete-btn {
+            background-color: #d32f2f;
+        }
+
+        .update-btn:hover, .delete-btn:hover, .back-btn:hover {
+            opacity: 1;
+        }
+
+        
+        .back-btn {
+            display: block;
+            width: 50%;
+            margin: 20px auto;
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+
+    <h2>Contact Details</h2>
+
+    <div class="contact-card">
+        <div class="contact-actions">
+            <a href="{% url 'update_contact' contact.slno %}" class="update-btn">Update</a>
+            <a href="{% url 'delete_contact' contact.slno %}" class="delete-btn" onclick="return confirm('Are you sure?');">Delete</a>
+        </div>
+
+        {% if contact %}
+            <p><strong>First Name:</strong> {{ contact.first_name }}</p>
+            <p><strong>Last Name:</strong> {{ contact.last_name }}</p>
+            <p><strong>Email:</strong> {{ contact.email }}</p>
+            <p><strong>Phone Number:</strong> {{ contact.number }}</p>
+            <p><strong>Address:</strong> {{ contact.address }}</p>
+            <p><strong>Gender:</strong> {{ contact.gender }}</p>
+        {% else %}
+            <p>Contact not found.</p>
+        {% endif %}
+
+        <a href="{% url 'dashboard' %}" class="back-btn">Back to Dashboard</a>
+    </div>
+
+</body>
+</html>
